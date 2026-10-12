@@ -210,17 +210,17 @@ A model cannot know your documents. Asked what payment terms servo-motor supplie
 
 ```mermaid
 flowchart TD
-    subgraph Stage 1: Indexing, before any question
+    subgraph S1["Stage 1: Indexing, before any question"]
     P[PDF] --> R[Read pages<br/>keep file name]
-    R --> C[Cut into chunks<br/>~1000 characters, overlap ~100]
+    R --> C["Cut into chunks<br/>~1000 characters, overlap ~100"]
     C --> E[Embed each chunk<br/>768 numbers]
     E --> V[(Vector store<br/>Chroma locally)]
     end
-    subgraph Stage 2: Answering, per question
+    subgraph S2["Stage 2: Answering, per question"]
     Q[Question] --> QE[Embed with the SAME model]
     QE --> N[Find nearest chunks]
     V --> N
-    N --> PR[Build prompt:<br/>chunks + question + instructions]
+    N --> PR["Build prompt:<br/>chunks + question + instructions"]
     PR --> A[LLM writes the answer]
     end
 ```
